@@ -13,6 +13,7 @@ import { ResultStep } from "../../../components/ResultSteps/ResultSteps.types";
 
 import { useNavigate } from "react-router";
 import { RoutePaths } from "../../../routes";
+import { RestartOrContinue } from "../../../components/Modals/RestartOrContinue";
 
 const taskCount = 10;
 
@@ -83,8 +84,13 @@ export const MultiplicationPlay = (
   useEffect(() => {
     if (!isStarted) {
       props.start();
+      return;
     }
-  }, [isStarted]);
+
+    window.onbeforeunload = () => {
+      return "Biztosan el akarod hagyni a játékot?";
+    };
+  });
 
   return (
     <div className="container">

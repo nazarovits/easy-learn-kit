@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router";
 
+import { HomePage } from "../features/Home";
 import MultiplicationTable from "../components/MultiplicationTable";
 import { MultiplicationStart } from "../features/Multiplication/MultiplicationStart";
 import { MultiplicationPlay } from "../features/Multiplication/MultiplicationPlay";
@@ -21,7 +22,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <>Szia :)</>,
+        element: <HomePage />,
       },
       {
         path: RoutePaths.MultiplicationStart,
