@@ -10,7 +10,7 @@ import App from "../App";
 export enum RoutePaths {
   Home = "",
   MultiplicationTable = "multiplication-table",
-  MultiplicationStart = "multiplication/start",
+  MultiplicationStart = "/multiplication/start",
   MultiplicationPlay = "/multiplication/play",
   DivisionTable = "/division-table",
 }
