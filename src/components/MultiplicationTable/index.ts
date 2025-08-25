@@ -1,5 +1,4 @@
-export * from './MultiplicationTable';
-export * from './MultiplicationTable.container'
+export * from "./MultiplicationTable";
 
-import MultiplicationTableContainer from './MultiplicationTable.container';
-export default MultiplicationTableContainer
+import MultiplicationTable from "./MultiplicationTable";
+export default MultiplicationTable;

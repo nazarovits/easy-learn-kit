@@ -1,5 +1,4 @@
-export * from './DivisionTable';
-export * from './DivisionTable.container'
+export * from "./DivisionTable";
 
-import DivisionTableContainer from './DivisionTable.container';
-export default DivisionTableContainer
+import DivisionTable from "./DivisionTable";
+export default DivisionTable;

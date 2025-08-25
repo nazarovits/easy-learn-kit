@@ -1,15 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 //import { devToolsEnhancer  } from '@redux-devtools/extension';
-import multiplicationTable from "./components/MultiplicationTable/MultiplicationTable.slice";
-import divisionTable from "./components/DivisionTable/DivisionTable.slice";
-import addition from "./components/Addition/Addition.slice";
 import resultSteps from "./components/ResultSteps/ResultSteps.slice";
+import arithmeticTable from "./components/ArithmeticTable/ArithmeticTable.slice";
 
 const store = configureStore({
   reducer: {
-    addition,
-    multiplicationTable,
-    divisionTable,
+    arithmeticTable,
     resultSteps,
   },
   preloadedState: {

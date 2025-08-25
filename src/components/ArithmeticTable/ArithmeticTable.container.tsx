@@ -1,17 +1,17 @@
 import { connect, ConnectedProps } from "react-redux";
 
 import { RootState } from "../../store";
-import { start, end } from "./MultiplicationTable.slice";
+import { start, end } from "./ArithmeticTable.slice";
 import {
   setSteps,
   setCurrentStep,
   setStepsStatus,
   updateStep,
 } from "../ResultSteps/ResultSteps.slice";
-import MultiplicationTable from "./MultiplicationTable";
+import Addition from "./ArithmeticTable";
 
 const mapStateToProps = (state: RootState) => ({
-  isStarted: state.multiplicationTable.isStarted,
+  isStarted: state.arithmeticTable.isStarted,
   currentStep: state.resultSteps.currentStep,
   steps: state.resultSteps.steps,
 });
@@ -27,4 +27,4 @@ const mapDispatchToProps = {
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 export type PropsFromRedux = ConnectedProps<typeof connector>;
-export default connector(MultiplicationTable);
+export default connector(Addition);

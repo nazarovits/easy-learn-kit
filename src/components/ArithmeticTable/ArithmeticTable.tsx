@@ -1,44 +1,43 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-import ResultStepsContainer from "../../../components/ResultSteps";
+import ResultStepsContainer from "../ResultSteps";
+
+// TODO: Rename this component
 import MultiplicationForm, {
   MultiplicationFormProps,
-} from "../../../components/MultiplicationForm";
-import { getRandomInteger } from "../../../components/utils/getRandomInteger";
+} from "../MultiplicationForm";
 
-import { PropsFromRedux } from "./MultiplicationPlay.container";
+import { PropsFromRedux } from "./ArithmeticTable.container";
 import { Alert, Button, Col, Row } from "react-bootstrap";
-import { createListWithNumbers } from "../../../components/utils";
-import { ResultStep } from "../../../components/ResultSteps/ResultSteps.types";
+import { createListWithNumbers } from "../utils";
+import { ResultStep } from "../ResultSteps/ResultSteps.types";
 
-const taskCount = 10;
+export enum Operation {
+  Addition = "+",
+  Subtraction = "-",
+  Multiplication = "x",
+  Division = ":",
+}
 
-const createTasks = () => {
-  const items = createListWithNumbers(taskCount);
-  const tasks = items.map((_) => {
-    const number1 = getRandomInteger(2, 9);
-    const number2 = getRandomInteger(2, 9);
-    const expectedResult = number1 * number2;
+export interface Task {
+  number1: number;
+  number2: number;
+  expectedResult: number;
+}
 
-    return {
-      number1,
-      number2,
-      expectedResult,
-    };
-  });
+export interface ArithmeticTableProps {
+  title: string;
+  operation: Operation;
+  tasks: Task[];
+}
 
-  return tasks;
-};
-
-export interface MultiplicationPlayProps {}
-
-export const MultiplicationPlay = (
-  props: MultiplicationPlayProps & PropsFromRedux
+export const ArithmeticTable = (
+  props: ArithmeticTableProps & PropsFromRedux
 ) => {
-  const { isStarted, currentStep } = props;
-  const tasks = useRef(createTasks()).current;
+  const { title, tasks, isStarted, currentStep, operation } = props;
   const [isCompleted, setIsCompleted] = useState(false);
   const currentTask = tasks[currentStep - 1];
+
   const formProps: MultiplicationFormProps = {
     ...currentTask,
 
@@ -50,12 +49,12 @@ export const MultiplicationPlay = (
       props.updateStep({
         position: currentStep,
         status,
-        task: `${number1} x ${number2}`,
+        task: `${number1} + ${number2}`,
         actualResult,
         expectedResult,
       });
 
-      if (currentStep === taskCount) {
+      if (currentStep === tasks.length) {
         //setShowModal(true);
         setIsCompleted(true);
         //alert("Végeztél!");
@@ -77,19 +76,22 @@ export const MultiplicationPlay = (
     }
   }, [isStarted]);
 
-  useEffect(() => {
-    if (!isStarted) {
-      props.start();
-      return;
-    }
-
-    //window.onbeforeunload = () => {
-    //  return "Biztosan el akarod hagyni a játékot?";
-    //};
-  });
+  const onStartClick = () => {
+    props.start();
+  };
 
   return (
     <div className="container">
+      <h2>{title}</h2>
+
+      {!isStarted && (
+        <div className="">
+          <Button className="btn btn-success" onClick={onStartClick}>
+            Kezdés
+          </Button>
+        </div>
+      )}
+
       {isStarted && (
         <div className="row mt-3">
           <div className="col">
@@ -113,7 +115,7 @@ export const MultiplicationPlay = (
 
       {isStarted && !isCompleted && (
         <>
-          <MultiplicationForm {...formProps} />
+          <MultiplicationForm {...formProps} operationSymbol={operation} />
         </>
       )}
 
@@ -136,4 +138,4 @@ export const MultiplicationPlay = (
   );
 };
 
-export default MultiplicationPlay;
+export default ArithmeticTable;

@@ -3,7 +3,8 @@ import { RootState } from "../../../store";
 import { Step } from "./Step";
 
 const mapStateToProps = (state: RootState) => ({
-  isStarted: state.multiplicationTable.isStarted,
+  // TODO: do not use the airthmeticTable slice for the isStarted flag
+  isStarted: state.arithmeticTable.isStarted,
   currentStep: state.resultSteps.currentStep,
 });
 
