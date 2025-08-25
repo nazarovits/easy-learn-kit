@@ -1,48 +1,46 @@
 import { useEffect, useRef, useState } from "react";
 
-import ResultStepsContainer from "../../../components/ResultSteps";
+import ResultStepsContainer from "../ResultSteps";
 import MultiplicationForm, {
   MultiplicationFormProps,
-} from "../../../components/MultiplicationForm";
-import { getRandomInteger } from "../../../components/utils/getRandomInteger";
+} from "../MultiplicationForm";
+import { getRandomInteger } from "../utils/getRandomInteger";
 
-import { PropsFromRedux } from "./MultiplicationPlay.container";
+import { PropsFromRedux } from "./Addition.container";
 import { Alert, Button, Col, Row } from "react-bootstrap";
-import { createListWithNumbers } from "../../../components/utils";
-import { ResultStep } from "../../../components/ResultSteps/ResultSteps.types";
-
-import { useNavigate } from "react-router";
-import { RoutePaths } from "../../../routes";
-import { RestartOrContinue } from "../../../components/Modals/RestartOrContinue";
+import { createListWithNumbers } from "../utils";
+import { ResultStep } from "../ResultSteps/ResultSteps.types";
 
 const taskCount = 10;
 
 const createTasks = () => {
   const items = createListWithNumbers(taskCount);
   const tasks = items.map((_) => {
-    const number1 = getRandomInteger(2, 9);
-    const number2 = getRandomInteger(2, 9);
-    const expectedResult = number1 * number2;
+    const number1 = getRandomInteger(2, 10);
+    const number2 = getRandomInteger(2, 10);
+    //const number1 = getRandomInteger(1, 19);
+    //const number2 = getRandomInteger(11, 29);
+
+    const sum = number1 + number2;
 
     return {
       number1,
       number2,
-      expectedResult,
+      expectedResult: sum,
     };
   });
 
   return tasks;
 };
 
-export interface MultiplicationPlayProps {}
+export interface AdditionProps {}
 
-export const MultiplicationPlay = (
-  props: MultiplicationPlayProps & PropsFromRedux
-) => {
+export const Addition = (props: AdditionProps & PropsFromRedux) => {
   const { isStarted, currentStep } = props;
   const tasks = useRef(createTasks()).current;
   const [isCompleted, setIsCompleted] = useState(false);
   const currentTask = tasks[currentStep - 1];
+
   const formProps: MultiplicationFormProps = {
     ...currentTask,
 
@@ -54,7 +52,7 @@ export const MultiplicationPlay = (
       props.updateStep({
         position: currentStep,
         status,
-        task: `${number1} x ${number2}`,
+        task: `${number1} + ${number2}`,
         actualResult,
         expectedResult,
       });
@@ -81,19 +79,22 @@ export const MultiplicationPlay = (
     }
   }, [isStarted]);
 
-  useEffect(() => {
-    if (!isStarted) {
-      props.start();
-      return;
-    }
-
-    //window.onbeforeunload = () => {
-    //  return "Biztosan el akarod hagyni a játékot?";
-    //};
-  });
+  const onStartClick = () => {
+    props.start();
+  };
 
   return (
     <div className="container">
+      <h2>Összeadás</h2>
+
+      {!isStarted && (
+        <div className="">
+          <Button className="btn btn-success" onClick={onStartClick}>
+            Kezdés
+          </Button>
+        </div>
+      )}
+
       {isStarted && (
         <div className="row mt-3">
           <div className="col">
@@ -117,7 +118,7 @@ export const MultiplicationPlay = (
 
       {isStarted && !isCompleted && (
         <>
-          <MultiplicationForm {...formProps} />
+          <MultiplicationForm {...formProps} operationSymbol="+" />
         </>
       )}
 
@@ -140,4 +141,4 @@ export const MultiplicationPlay = (
   );
 };
 
-export default MultiplicationPlay;
+export default Addition;
