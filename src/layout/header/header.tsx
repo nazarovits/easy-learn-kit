@@ -8,6 +8,7 @@ import { RoutePaths } from "../../routes/routes";
 export const Header = () => {
   const items = [
     { name: "Összeadás", path: RoutePaths.Addition },
+    { name: "Kivonás", path: RoutePaths.Subtraction },
     { name: "Szorzás", path: RoutePaths.MultiplicationTable },
     { name: "Osztás", path: RoutePaths.DivisionTable },
   ];

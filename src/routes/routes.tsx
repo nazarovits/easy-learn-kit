@@ -5,12 +5,14 @@ import MultiplicationTable from "../components/MultiplicationTable";
 //import { MultiplicationStart } from "../features/Multiplication/MultiplicationStart";
 //import { MultiplicationPlay } from "../features/Multiplication/MultiplicationPlay";
 import Addition from "../components/Addition";
+import Substraction from "../components/Substraction";
 import DivisionTable from "../components/DivisionTable";
 import App from "../App";
 
 export enum RoutePaths {
   Home = "",
   Addition = "/addition",
+  Subtraction = "/subtraction",
   MultiplicationTable = "/multiplication-table",
   MultiplicationStart = "/multiplication/start",
   MultiplicationPlay = "/multiplication/play",
@@ -40,6 +42,7 @@ export const router = createBrowserRouter([
       },
       { path: RoutePaths.DivisionTable, element: <DivisionTable /> },
       { path: RoutePaths.Addition, element: <Addition /> },
+      { path: RoutePaths.Subtraction, element: <Substraction /> },
     ],
   },
 ]);

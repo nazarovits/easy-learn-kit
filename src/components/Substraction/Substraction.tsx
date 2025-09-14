@@ -13,28 +13,28 @@ const createTasks = (): Task[] => {
     //const number1 = getRandomInteger(1, 19);
     //const number2 = getRandomInteger(11, 29);
 
-    const sum = number1 + number2;
+    const total = number1 + number2;
 
     return {
-      number1,
+      number1: total,
       number2,
-      expectedResult: sum,
+      expectedResult: number1,
     };
   });
 
   return tasks;
 };
 
-export const Addition = () => {
+export const Substraction = () => {
   const tasks = useRef(createTasks()).current;
 
   return (
     <ArithmeticTableContainer
-      title="Összeadás"
-      operation={Operation.Addition}
+      title="Kivonás"
+      operation={Operation.Subtraction}
       tasks={tasks}
     />
   );
 };
 
-export default Addition;
+export default Substraction;
