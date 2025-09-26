@@ -10,8 +10,8 @@ const createTasks = (): Task[] => {
   const tasks = items.map((_) => {
     const number1 = getRandomInteger(2, 21);
     const number2 = getRandomInteger(2, 79);
-    //const number1 = getRandomInteger(1, 19);
-    //const number2 = getRandomInteger(11, 29);
+    //const number1 = getRandomInteger(1, 10);
+    //const number2 = getRandomInteger(0, 10);
 
     const sum = number1 + number2;
 

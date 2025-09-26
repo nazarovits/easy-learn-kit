@@ -1,17 +1,14 @@
-const route: string = "";
+import { useLocation } from "react-router";
 
 import { NavLink } from "react-router";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 import { RoutePaths } from "../../routes/routes";
+import { createHeaderItems, HeaderNavItem, HeaderSubNavItem } from "./config";
 
 export const Header = () => {
-  const items = [
-    { name: "Összeadás", path: RoutePaths.Addition },
-    { name: "Kivonás", path: RoutePaths.Subtraction },
-    { name: "Szorzás", path: RoutePaths.MultiplicationTable },
-    { name: "Osztás", path: RoutePaths.DivisionTable },
-  ];
+  const location = useLocation();
+  const headerItems = createHeaderItems();
 
   return (
     <header className="app-header">
@@ -28,39 +25,52 @@ export const Header = () => {
               className="me-auto inline-block justify-content-right"
               variant="underline"
             >
-              {items.map((item) => (
-                <Nav.Item key={item.name}>
-                  <Nav.Link key={item.name} href={item.path}>
-                    {item.name}
-                  </Nav.Link>
-                </Nav.Item>
-              ))}
+              {headerItems.map((headerItem) => {
+                if (headerItem.type === "default") {
+                  const navItem = headerItem as HeaderNavItem;
+                  return (
+                    <Nav.Item key={navItem.name}>
+                      <Nav.Link as={NavLink} to={navItem.path}>
+                        {navItem.name}
+                      </Nav.Link>
+                    </Nav.Item>
+                  );
+                }
+
+                if (headerItem.type === "dropdown") {
+                  const subNavItem = headerItem as HeaderSubNavItem;
+                  const isActive = !!(
+                    headerItem.path &&
+                    location.pathname.startsWith(headerItem.path)
+                  );
+
+                  return (
+                    <NavDropdown
+                      title={subNavItem.name}
+                      key={subNavItem.name}
+                      active={isActive}
+                    >
+                      {subNavItem.items.map((subItem) => (
+                        <NavDropdown.Item
+                          as={NavLink}
+                          to={subItem.path}
+                          key={subItem.name}
+                        >
+                          {subItem.name}
+                        </NavDropdown.Item>
+                      ))}
+                    </NavDropdown>
+                  );
+                }
+
+                console.warn(
+                  `Unknown header item type ${headerItem.type} for ${headerItem}`
+                );
+              })}
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {false && (
-        <nav className="navbar navbar-dark bg-dark">
-          <ul className="navbar-nav flex-row gap-2">
-            {items.map((item) => (
-              <li
-                key={item.name}
-                className={`nav-item ${route === item.path ? "active" : ""}`}
-              >
-                <NavLink
-                  to={item.path}
-                  className={({ isActive }) =>
-                    `nav-link ${isActive ? "active" : ""}`
-                  }
-                  end={false}
-                >
-                  {item.name}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
     </header>
   );
 };

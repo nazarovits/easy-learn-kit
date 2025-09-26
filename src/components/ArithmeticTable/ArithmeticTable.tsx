@@ -49,7 +49,7 @@ export const ArithmeticTable = (
       props.updateStep({
         position: currentStep,
         status,
-        task: `${number1} + ${number2}`,
+        task: `${number1} ${operation} ${number2}`,
         actualResult,
         expectedResult,
       });

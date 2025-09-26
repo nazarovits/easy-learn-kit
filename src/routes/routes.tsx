@@ -2,17 +2,21 @@ import { createBrowserRouter } from "react-router";
 
 import { HomePage } from "../features/Home";
 import MultiplicationTable from "../components/MultiplicationTable";
-//import { MultiplicationStart } from "../features/Multiplication/MultiplicationStart";
-//import { MultiplicationPlay } from "../features/Multiplication/MultiplicationPlay";
 import Addition from "../components/Addition";
 import Substraction from "../components/Substraction";
 import DivisionTable from "../components/DivisionTable";
 import App from "../App";
+import ABC from "../features/ABC";
 
 export enum RoutePaths {
   Home = "",
-  Addition = "/addition",
-  Subtraction = "/subtraction",
+  ABC = "/abc",
+  Matek = "/matek",
+  Addition = "/matek/addition",
+  Subtraction = "/matek/subtraction",
+  Multiplication = "/matek/multiplication",
+  Division = "/matek/division",
+
   MultiplicationTable = "/multiplication-table",
   MultiplicationStart = "/multiplication/start",
   MultiplicationPlay = "/multiplication/play",
@@ -28,14 +32,28 @@ export const router = createBrowserRouter([
         index: true,
         element: <HomePage />,
       },
-      /*{
-        path: RoutePaths.MultiplicationStart,
-        element: <MultiplicationStart />,
+      {
+        path: RoutePaths.ABC,
+        element: <ABC />,
       },
       {
-        path: RoutePaths.MultiplicationPlay,
-        element: <MultiplicationPlay />,
-      },*/
+        path: RoutePaths.Matek,
+        children: [
+          {
+            path: RoutePaths.Addition,
+            element: <Addition />,
+          },
+          {
+            path: RoutePaths.Subtraction,
+            element: <Substraction />,
+          },
+          {
+            path: RoutePaths.Multiplication,
+            element: <MultiplicationTable />,
+          },
+          { path: RoutePaths.Division, element: <DivisionTable /> },
+        ],
+      },
       {
         path: RoutePaths.MultiplicationTable,
         element: <MultiplicationTable />,
