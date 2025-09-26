@@ -25,8 +25,12 @@ const createTasks = (): Task[] => {
   return tasks;
 };
 
-export const Substraction = () => {
-  const tasks = useRef(createTasks()).current;
+export interface SubstractionProps {
+  tasks?: Task[];
+}
+
+export const Substraction = (props: SubstractionProps = {}) => {
+  const tasks = useRef(props.tasks || createTasks()).current;
 
   return (
     <ArithmeticTableContainer

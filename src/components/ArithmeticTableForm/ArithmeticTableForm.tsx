@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Button, Col, Form } from "react-bootstrap";
-import { ResultStep, ResultStepStatus } from "../ResultSteps/ResultSteps.types";
-import styles from "./MultiplicationForm.module.css";
+import { ResultStepStatus } from "../ResultSteps/ResultSteps.types";
+import styles from "./ArithmeticTableForm.module.css";
 import { shakeIt } from "../Animations";
 
-export interface MultiplicationFormProps {
+export interface ArithmeticTableFormProps {
   number1: number;
   number2: number;
   expectedResult: number;
@@ -15,7 +15,7 @@ export interface MultiplicationFormProps {
   }) => void;
 }
 
-export const MultiplicationForm = (props: MultiplicationFormProps) => {
+export const ArithmeticTableForm = (props: ArithmeticTableFormProps) => {
   const {
     number1 = 3,
     number2 = 4,

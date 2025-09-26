@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 
 import ResultStepsContainer from "../../../components/ResultSteps";
-import MultiplicationForm, {
-  MultiplicationFormProps,
-} from "../../../components/MultiplicationForm";
+import ArithmeticTableForm, {
+  ArithmeticTableFormProps,
+} from "../../../components/ArithmeticTableForm";
 import { getRandomInteger } from "../../../components/utils/getRandomInteger";
 
 import { PropsFromRedux } from "./MultiplicationPlay.container";
@@ -39,7 +39,7 @@ export const MultiplicationPlay = (
   const tasks = useRef(createTasks()).current;
   const [isCompleted, setIsCompleted] = useState(false);
   const currentTask = tasks[currentStep - 1];
-  const formProps: MultiplicationFormProps = {
+  const formProps: ArithmeticTableFormProps = {
     ...currentTask,
 
     onSubmit: ({ status, actualResult }) => {
@@ -113,7 +113,7 @@ export const MultiplicationPlay = (
 
       {isStarted && !isCompleted && (
         <>
-          <MultiplicationForm {...formProps} />
+          <ArithmeticTableForm {...formProps} />
         </>
       )}
 

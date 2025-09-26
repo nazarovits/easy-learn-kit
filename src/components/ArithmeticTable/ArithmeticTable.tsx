@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 
 import ResultStepsContainer from "../ResultSteps";
-
-// TODO: Rename this component
-import MultiplicationForm, {
-  MultiplicationFormProps,
-} from "../MultiplicationForm";
+import ArithmeticTableForm, {
+  ArithmeticTableFormProps,
+} from "../ArithmeticTableForm";
 
 import { PropsFromRedux } from "./ArithmeticTable.container";
 import { Alert, Button, Col, Row } from "react-bootstrap";
@@ -29,16 +27,28 @@ export interface ArithmeticTableProps {
   title: string;
   operation: Operation;
   tasks: Task[];
+  hasStartButton?: boolean;
 }
 
 export const ArithmeticTable = (
   props: ArithmeticTableProps & PropsFromRedux
 ) => {
-  const { title, tasks, isStarted, currentStep, operation } = props;
+  const {
+    title,
+    tasks,
+    steps,
+    currentStep,
+    operation,
+    hasStartButton = false,
+
+    updateStep,
+    setCurrentStep,
+    setSteps,
+  } = props;
+  const [isStarted, setIsStarted] = useState(!hasStartButton);
   const [isCompleted, setIsCompleted] = useState(false);
   const currentTask = tasks[currentStep - 1];
-
-  const formProps: MultiplicationFormProps = {
+  const formProps: ArithmeticTableFormProps = {
     ...currentTask,
 
     onSubmit: ({ status, actualResult }) => {
@@ -46,7 +56,7 @@ export const ArithmeticTable = (
       console.log("result actual", actualResult);
       const { number1, number2, expectedResult } = currentTask;
 
-      props.updateStep({
+      updateStep({
         position: currentStep,
         status,
         task: `${number1} ${operation} ${number2}`,
@@ -60,7 +70,7 @@ export const ArithmeticTable = (
         //alert("Végeztél!");
         //window.location.reload();
       } else {
-        props.setCurrentStep(currentStep + 1);
+        setCurrentStep(currentStep + 1);
       }
     },
   };
@@ -72,19 +82,20 @@ export const ArithmeticTable = (
         status: "default",
         position: item,
       }));
-      props.setSteps({ steps });
+      setSteps({ steps });
+      setCurrentStep(1);
     }
   }, [isStarted]);
 
   const onStartClick = () => {
-    props.start();
+    setIsStarted(true);
   };
 
   return (
     <div className="container">
       <h2>{title}</h2>
 
-      {!isStarted && (
+      {hasStartButton && !isStarted && (
         <div className="">
           <Button className="btn btn-success" onClick={onStartClick}>
             Kezdés
@@ -115,7 +126,7 @@ export const ArithmeticTable = (
 
       {isStarted && !isCompleted && (
         <>
-          <MultiplicationForm {...formProps} operationSymbol={operation} />
+          <ArithmeticTableForm {...formProps} operationSymbol={operation} />
         </>
       )}
 
@@ -124,12 +135,11 @@ export const ArithmeticTable = (
           <Col className="col">
             <Alert variant="success">
               Sikeres:{" "}
-              {props.steps.filter((step) => step.status === "success").length}
+              {steps.filter((step) => step.status === "success").length}
             </Alert>
 
             <Alert variant="danger">
-              Hibas:{" "}
-              {props.steps.filter((step) => step.status === "failure").length}
+              Hibas: {steps.filter((step) => step.status === "failure").length}
             </Alert>
           </Col>
         </Row>

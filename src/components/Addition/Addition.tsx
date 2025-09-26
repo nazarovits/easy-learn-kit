@@ -25,8 +25,11 @@ const createTasks = (): Task[] => {
   return tasks;
 };
 
-export const Addition = () => {
-  const tasks = useRef(createTasks()).current;
+export interface AdditionProps {
+  tasks?: Task[];
+}
+export const Addition = (props: AdditionProps = {}) => {
+  const tasks = useRef(props?.tasks || createTasks()).current;
 
   return (
     <ArithmeticTableContainer
