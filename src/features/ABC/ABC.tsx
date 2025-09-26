@@ -143,7 +143,6 @@ export const ABC = () => {
   const randomWords = useRef<string[]>(getRandomWords(words, 10));
   const expectedResult = sortWordsByHungarianAlphabet([...randomWords.current]);
   const [sortedItems, setSortedItems] = useState(randomWords.current);
-  const [isStarted, setIsStarted] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
 
@@ -187,15 +186,8 @@ export const ABC = () => {
   );
 
   return (
-    <TaskLayout
-      title="ABC"
-      isStarted={isStarted}
-      onStartClick={() => {
-        setIsStarted(true);
-        setIsCompleted(false);
-      }}
-    >
-      {isStarted && abc}
+    <TaskLayout title="ABC" isStarted={true}>
+      {abc}
 
       {isCompleted && (
         <Row className="align-items-center justify-content-center mt-4">

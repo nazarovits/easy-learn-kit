@@ -4,17 +4,24 @@ import { Button } from "react-bootstrap";
 interface TaskLayoutProps {
   title: string;
   isStarted: boolean;
-  onStartClick: () => void;
+  onStartClick?: () => void;
+  hasStartButton?: boolean;
 }
 export const TaskLayout = (props: PropsWithChildren<TaskLayoutProps>) => {
-  const { title, isStarted, onStartClick, children } = props;
+  const {
+    title,
+    children,
+    isStarted = false,
+    onStartClick = () => {},
+    hasStartButton = false,
+  } = props;
 
   return (
     <div className="container">
-      <h2>{title}</h2>
+      <h2 className="mt-4">{title}</h2>
 
-      {!isStarted && (
-        <div className="">
+      {hasStartButton && !isStarted && (
+        <div>
           <Button className="btn btn-success" onClick={onStartClick}>
             Kezdés
           </Button>

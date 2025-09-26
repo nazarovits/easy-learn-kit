@@ -6,9 +6,10 @@ import ArithmeticTableForm, {
 } from "../ArithmeticTableForm";
 
 import { PropsFromRedux } from "./ArithmeticTable.container";
-import { Alert, Button, Col, Row } from "react-bootstrap";
+import { Alert, Col, Row } from "react-bootstrap";
 import { createListWithNumbers } from "../utils";
 import { ResultStep } from "../ResultSteps/ResultSteps.types";
+import TaskLayout from "../../layout/task";
 
 export enum Operation {
   Addition = "+",
@@ -92,32 +93,12 @@ export const ArithmeticTable = (
   };
 
   return (
-    <div className="container">
-      <h2>{title}</h2>
-
-      {hasStartButton && !isStarted && (
-        <div className="">
-          <Button className="btn btn-success" onClick={onStartClick}>
-            Kezdés
-          </Button>
-        </div>
-      )}
-
-      {isStarted && (
-        <div className="row mt-3">
-          <div className="col">
-            <Button
-              type="submit"
-              variant="secondary"
-              className="btn"
-              onClick={() => window.location.reload()}
-            >
-              Újrakezdés
-            </Button>
-          </div>
-        </div>
-      )}
-
+    <TaskLayout
+      title={title}
+      isStarted={isStarted}
+      onStartClick={onStartClick}
+      hasStartButton={hasStartButton}
+    >
       {isStarted && (
         <div className="row mt-5">
           <ResultStepsContainer />
@@ -144,7 +125,7 @@ export const ArithmeticTable = (
           </Col>
         </Row>
       )}
-    </div>
+    </TaskLayout>
   );
 };
 
