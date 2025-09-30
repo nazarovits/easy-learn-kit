@@ -140,7 +140,7 @@ const DragableCardList = (props: DragableCardListProps) => {
 };
 
 export const ABC = () => {
-  const randomWords = useRef<string[]>(getRandomWords(words, 10));
+  const randomWords = useRef<string[]>(getRandomWords(words, 5));
   const expectedResult = sortWordsByHungarianAlphabet([...randomWords.current]);
   const [sortedItems, setSortedItems] = useState(randomWords.current);
   const [isCompleted, setIsCompleted] = useState(false);
