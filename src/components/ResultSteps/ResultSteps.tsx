@@ -1,27 +1,33 @@
+import { Row } from "react-bootstrap";
 import styles from "./ResultSteps.module.css";
-import { PropsFromRedux } from "./ResultSteps.container";
-import StepContainer from "./Step/Step.container";
+//import { PropsFromRedux } from "./ResultSteps.container";
+//import StepContainer from "./Step/Step.container";
+import { Step } from "./Step/Step";
+import { ResultStep } from "./ResultSteps.types";
 
-export const ResultSteps = (props: PropsFromRedux) => {
+export interface ResultStepsProps {
+  steps: ResultStep[];
+  currentStep: number;
+}
+
+export const ResultSteps = (props: ResultStepsProps) => {
   const { steps = [], currentStep } = props;
 
-  return (
-    <div className="container">
-      {!steps.length && <>No results :(...</>}
+  if (!steps.length) {
+    return <Row className="justify-content-center">{"No results :("}</Row>;
+  }
 
-      {steps.length > 0 && (
-        <div className={styles.resultSteps}>
-          {steps.map((step, index) => {
-            return (
-              <StepContainer
-                {...step}
-                isCurrent={currentStep === step.position}
-                key={index}
-              />
-            );
-          })}
-        </div>
-      )}
+  return (
+    <div className={styles.resultSteps}>
+      {steps.map((step, index) => {
+        return (
+          <Step
+            {...step}
+            isCurrent={currentStep === step.position}
+            key={index}
+          />
+        );
+      })}
     </div>
   );
 };

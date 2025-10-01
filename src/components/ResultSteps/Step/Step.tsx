@@ -12,10 +12,6 @@ export const Step = (props: StepProps) => {
   const { status, position, isCurrent, actualResult } = props;
   let className = styles.resultStep;
 
-  if (position === 1) {
-    console.log("step props", props);
-  }
-
   if (status === "success") {
     className += ` ${styles.resultStepSuccess}`;
   } else if (status === "failure") {

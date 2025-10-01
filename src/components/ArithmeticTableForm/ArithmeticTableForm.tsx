@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
-import { Button, Col, Form } from "react-bootstrap";
-import { ResultStepStatus } from "../ResultSteps/ResultSteps.types";
+import { Button, Col, Form, Row } from "react-bootstrap";
+import { ResultStepStatus } from "@/components/ResultSteps";
+import { shakeIt } from "@/ui/Animations";
 import styles from "./ArithmeticTableForm.module.css";
-import { shakeIt } from "../Animations";
 
 export interface ArithmeticTableFormProps {
   number1: number;
@@ -52,8 +52,8 @@ export const ArithmeticTableForm = (props: ArithmeticTableFormProps) => {
 
   return (
     <Form onSubmit={onFormSubmit}>
-      <div className="row mt-5">
-        <div className="col">
+      <Row className="mt-4 text-center">
+        <Col>
           <span className={styles.number}>{number1}</span>
           <span
             className={styles.number}
@@ -63,6 +63,7 @@ export const ArithmeticTableForm = (props: ArithmeticTableFormProps) => {
           ></span>
           <span className={styles.number}>{number2}</span>
           <span className={styles.number}>=</span>
+
           <Form.Control
             isInvalid={isInvalid}
             ref={inputRef}
@@ -83,15 +84,15 @@ export const ArithmeticTableForm = (props: ArithmeticTableFormProps) => {
           <Form.Control.Feedback type="invalid">
             Kérlek írd be a választ!
           </Form.Control.Feedback>
-        </div>
-      </div>
-      <div className="row mt-3">
+        </Col>
+      </Row>
+      <Row className="mt-4 text-center">
         <Col>
           <Button type="submit" variant="primary" size="lg">
             OK
           </Button>
         </Col>
-      </div>
+      </Row>
     </Form>
   );
 };

@@ -1,4 +1,4 @@
-.result-step {
+.resultStep {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,23 +10,23 @@
   border-style: solid;
 }
 
-.result-step:hover {
+.resultStep:hover {
   cursor: pointer;
 }
 
-.result-step-error {
-  composes: result-step;
+.resultStepError {
+  composes: resultStep;
   background-color: #f8d7da;
   border-color: #f1aeb5;
 }
 
-.result-step-success {
-  composes: result-step;
+.resultStepSuccess {
+  composes: resultStep;
   background-color: #d1e7dd;
   border-color: #a3cfbb;
 }
 
-.result-step-current {
+.resultStepCurrent {
   font-weight: bold;
   border: 2px solid #333;
   box-shadow: 0 0 10px rgba(0, 0, 255, 0.027);

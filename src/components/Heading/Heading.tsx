@@ -1,5 +1,5 @@
-import { TextColors } from "../../constants/colorNames";
-import { joinClassNames } from "../../utils/classNames";
+import { TextColors } from "@/components/constants/colorNames";
+import { joinClassNames } from "@/components/utils/classNames";
 
 export interface HeadingProps {
   title: string;

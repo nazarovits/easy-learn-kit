@@ -1,0 +1,12 @@
+import Abc from "./ABC";
+
+import { getRandomWords } from "@/components/utils/getRandomWords";
+
+import { words } from "@/sources/words";
+
+export const AbcPage = () => {
+  const randomWords = getRandomWords([...words], 5);
+  return <Abc randomWords={randomWords} />;
+};
+
+export default AbcPage;

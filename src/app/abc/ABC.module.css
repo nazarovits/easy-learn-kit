@@ -1,0 +1,29 @@
+.draggableCardWrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  background-color: pink;
+  margin: 0;
+  padding: 0;
+
+  &:hover {
+    cursor: pointer;
+    background-color: lightpink;
+  }
+}
+
+.draggableCard {
+  width: 144px;
+  position: relative;
+
+  &:hover {
+    cursor: pointer;
+    border-width: 2px;
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+}

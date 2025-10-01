@@ -1,8 +1,10 @@
+"use client";
+
 import { useRef } from "react";
 
-import { getRandomInteger } from "../utils/getRandomInteger";
-import { createListWithNumbers } from "../utils";
-import ArithmeticTableContainer, { Operation, Task } from "../ArithmeticTable";
+import { getRandomInteger } from "@/components/utils/getRandomInteger";
+import { createListWithNumbers } from "@/components/utils";
+import ArithmeticTable, { Operation, Task } from "@/components/ArithmeticTable";
 
 const taskCount = 10;
 const createTasks = (): Task[] => {
@@ -10,9 +12,6 @@ const createTasks = (): Task[] => {
   const tasks = items.map((_) => {
     const number1 = getRandomInteger(2, 21);
     const number2 = getRandomInteger(2, 79);
-    //const number1 = getRandomInteger(1, 10);
-    //const number2 = getRandomInteger(0, 10);
-
     const sum = number1 + number2;
 
     return {
@@ -32,7 +31,7 @@ export const Addition = (props: AdditionProps = {}) => {
   const tasks = useRef(props?.tasks || createTasks()).current;
 
   return (
-    <ArithmeticTableContainer
+    <ArithmeticTable
       title="Összeadás"
       operation={Operation.Addition}
       tasks={tasks}

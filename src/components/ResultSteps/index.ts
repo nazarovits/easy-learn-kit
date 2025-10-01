@@ -1,3 +1,5 @@
-export * from './ResultSteps';
-import ResultStepsContainer from './ResultSteps.container';
-export default ResultStepsContainer;
+import ResultSteps from "./ResultSteps";
+
+export * from "./ResultSteps.types";
+export * from "./ResultSteps";
+export default ResultSteps;
