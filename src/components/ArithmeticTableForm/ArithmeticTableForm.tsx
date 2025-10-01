@@ -69,17 +69,11 @@ export const ArithmeticTableForm = (props: ArithmeticTableFormProps) => {
             ref={inputRef}
             onFocus={() => setIsInvalid(false)}
             onKeyDown={() => setIsInvalid(false)}
-            type="text"
+            className={styles.numberInput}
+            type="number"
             name="result"
             size="sm"
             autoComplete="off"
-            style={{
-              display: "inline-block",
-              width: "6rem",
-              textAlign: "center",
-              fontSize: "2rem",
-              fontWeight: "bold",
-            }}
           />
           <Form.Control.Feedback type="invalid">
             Kérlek írd be a választ!
