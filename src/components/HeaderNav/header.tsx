@@ -1,7 +1,6 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import Link from "next/link";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 import { createHeaderItems, HeaderNavItem, HeaderSubNavItem } from "./config";

@@ -10,7 +10,7 @@ const taskCount = 10;
 
 const createTasks = (): Task[] => {
   const items = createListWithNumbers(taskCount);
-  const tasks = items.map((_) => {
+  const tasks = items.map(() => {
     const number1 = getRandomInteger(2, 9);
     const number2 = getRandomInteger(2, 9);
 
@@ -26,7 +26,7 @@ const createTasks = (): Task[] => {
   return tasks;
 };
 
-export const DivisionTable = () => {
+const Page = () => {
   const tasks = useRef(createTasks()).current;
   return (
     <ArithmeticTable
@@ -37,4 +37,4 @@ export const DivisionTable = () => {
   );
 };
 
-export default DivisionTable;
+export default Page;

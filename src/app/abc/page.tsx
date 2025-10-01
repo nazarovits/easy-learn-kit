@@ -4,7 +4,7 @@ import { getRandomWords } from "@/components/utils/getRandomWords";
 
 import { words } from "@/sources/words";
 
-export const AbcPage = () => {
+const AbcPage = () => {
   const randomWords = getRandomWords([...words], 5);
   return <Abc randomWords={randomWords} />;
 };

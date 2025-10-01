@@ -9,7 +9,7 @@ import ArithmeticTable, { Operation, Task } from "@/components/ArithmeticTable";
 const taskCount = 10;
 const createTasks = (): Task[] => {
   const items = createListWithNumbers(taskCount);
-  const tasks = items.map((_) => {
+  const tasks = items.map(() => {
     const number1 = getRandomInteger(2, 9);
     const number2 = getRandomInteger(2, 9);
     const expectedResult = number1 * number2;
@@ -24,7 +24,7 @@ const createTasks = (): Task[] => {
   return tasks;
 };
 
-export const MultiplicationTable = () => {
+const Page = () => {
   const tasks = useRef(createTasks()).current;
 
   return (
@@ -36,4 +36,4 @@ export const MultiplicationTable = () => {
   );
 };
 
-export default MultiplicationTable;
+export default Page;

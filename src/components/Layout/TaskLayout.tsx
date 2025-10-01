@@ -1,6 +1,5 @@
 import { PropsWithChildren } from "react";
 import { Button, Container, Col, Row } from "react-bootstrap";
-import { Heading } from "@/components/Heading";
 
 interface TaskLayoutProps {
   title: string;
@@ -46,5 +45,7 @@ export const TaskLayout = (props: PropsWithChildren<TaskLayoutProps>) => {
     </Container>
   );
 };
+
+TaskLayout.dispalyName = "TaskLayout";
 
 export default TaskLayout;

@@ -6,7 +6,7 @@ import { getRandomInteger } from "@/components/utils/getRandomInteger";
 const taskCount = 10;
 const createAdditionTasks = (): Task[] => {
   const items = createListWithNumbers(taskCount);
-  const tasks = items.map((_) => {
+  const tasks = items.map(() => {
     const number1 = getRandomInteger(2, 21);
     const number2 = getRandomInteger(2, 79);
 
@@ -22,7 +22,9 @@ const createAdditionTasks = (): Task[] => {
   return tasks;
 };
 
-export default () => {
+const Page = () => {
   const tasks = createAdditionTasks();
   return <Addition tasks={tasks} />;
 };
+
+export default Page;
