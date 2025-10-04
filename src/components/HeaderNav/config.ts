@@ -62,6 +62,11 @@ export const createHeaderItems = (): HeaderItems => {
           type: "default",
           path: "/matek/3/division",
         },
+        {
+          name: "Relációk",
+          type: "default",
+          path: "/matek/3/compare/100-999",
+        },
       ],
     },
   ];

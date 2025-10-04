@@ -7,9 +7,42 @@ interface StepProps extends ResultStep {
   isCurrent: boolean;
 }
 
+const TaskDescription = (props: StepProps) => {
+  const { type } = props;
+
+  if (type === "relations") {
+    return <p>{props.task}</p>;
+  }
+
+  return (
+    <p>
+      {props.task} = <b>{props.expectedResult}</b>
+    </p>
+  );
+};
+
+const TaskExpectedResult = (props: StepProps) => {
+  const { type, task } = props;
+  const text = "A helyes megoldas:";
+
+  if (type === "relations") {
+    return (
+      <p>
+        {text} {props.expectedResult}
+      </p>
+    );
+  }
+
+  return (
+    <p>
+      {text} {props.expectedResult}
+    </p>
+  );
+};
+
 export const Step = (props: StepProps) => {
   const [show, setShow] = useState(false);
-  const { status, position, isCurrent, actualResult } = props;
+  const { status, position, isCurrent, actualResult, type } = props;
   let className = styles.resultStep;
 
   if (status === "success") {
@@ -48,11 +81,9 @@ export const Step = (props: StepProps) => {
           </Modal.Header>
           <Modal.Body>
             <Alert variant={alertVariant}>
-              <p>
-                {props.task} = <b>{props.expectedResult}</b>
-              </p>
+              <TaskDescription {...props} />
               <hr />
-              <p>A helyes megoldas: {props.expectedResult}</p>
+              <TaskExpectedResult {...props} />
               <p>A te megoldasod: {actualResult}</p>
             </Alert>
           </Modal.Body>
