@@ -2,10 +2,10 @@
 
 import { useRef } from "react";
 import RelationsTable from "@/components/RelationsTable";
-import { RelationsTableProps } from "@/components/RelationsTable";
+import { Task } from "@/components/RelationsTable/Tasks";
 
-export interface RelationsProps extends Pick<RelationsTableProps, "tasks"> {
-  // other props
+export interface RelationsProps {
+  tasks: Task[];
 }
 
 export const Relations = (props: RelationsProps) => {

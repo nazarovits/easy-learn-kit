@@ -22,7 +22,7 @@ const TaskDescription = (props: StepProps) => {
 };
 
 const TaskExpectedResult = (props: StepProps) => {
-  const { type, task } = props;
+  const { type } = props;
   const text = "A helyes megoldas:";
 
   if (type === "relations") {
@@ -42,7 +42,7 @@ const TaskExpectedResult = (props: StepProps) => {
 
 export const Step = (props: StepProps) => {
   const [show, setShow] = useState(false);
-  const { status, position, isCurrent, actualResult, type } = props;
+  const { status, position, isCurrent, actualResult } = props;
   let className = styles.resultStep;
 
   if (status === "success") {

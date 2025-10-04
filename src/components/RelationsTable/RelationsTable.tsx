@@ -11,7 +11,7 @@ import { ResultStep } from "../ResultSteps/ResultSteps.types";
 import TaskLayout from "@/components/Layout/TaskLayout";
 import Spinner from "../Spinner/Spinner";
 
-import { Task, RelationType, getExpectedRelationType } from "./Tasks";
+import { Task } from "./Tasks";
 
 export interface RelationsTableProps {
   title: string;
