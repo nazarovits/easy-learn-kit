@@ -63,6 +63,11 @@ export const createHeaderItems = (): HeaderItems => {
           path: "/matek/3/division",
         },
         {
+          name: "Maradékos osztás",
+          type: "default",
+          path: "/matek/3/mod",
+        },
+        {
           name: "Relációk",
           type: "default",
           path: "/matek/3/compare/100-999",

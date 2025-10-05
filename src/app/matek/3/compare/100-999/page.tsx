@@ -25,8 +25,6 @@ const crateTasks = (): Task[] => {
 
 const Page = () => {
   const tasks = crateTasks();
-
-  console.log("initial tasks", tasks);
   return <Relations tasks={tasks} />;
 };
 
