@@ -85,6 +85,13 @@ export const ModTasksForm = (props: ModTasksFormProps) => {
             name="ceil"
             autoComplete="off"
           />
+          <Form.Control.Feedback type="invalid">
+            Kérlek írd be a választ!
+          </Form.Control.Feedback>
+        </Col>
+      </Row>
+      <Row className="text-center">
+        <Col>
           <span className={styles.number}>{"("}</span>
           <Form.Control
             isInvalid={isModInvalid}
@@ -104,7 +111,14 @@ export const ModTasksForm = (props: ModTasksFormProps) => {
       </Row>
       <Row className="mt-4 text-center">
         <Col>
-          <Button type="submit" variant="primary" size="lg">
+          <Button
+            type="submit"
+            variant="primary"
+            size="lg"
+            style={{
+              width: "240px",
+            }}
+          >
             OK
           </Button>
         </Col>
