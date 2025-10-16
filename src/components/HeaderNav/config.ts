@@ -58,6 +58,11 @@ export const createHeaderItems = (): HeaderItems => {
           path: "/matek/3/multiplication",
         },
         {
+          name: "Szorzás (időre)",
+          type: "default",
+          path: "/matek/3/multiplication-timer",
+        },
+        {
           name: "Osztás",
           type: "default",
           path: "/matek/3/division",

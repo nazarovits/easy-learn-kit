@@ -40,24 +40,54 @@ const TaskExpectedResult = (props: StepProps) => {
   );
 };
 
+interface StatusInfo {
+  className: string;
+  title: string;
+  alertVariant: "success" | "danger" | "warning" | "info";
+}
+
+const handleStatus = (status: string): StatusInfo | null => {
+  if (status === "success") {
+    return {
+      className: styles.resultStepSuccess,
+      title: "Gratulálok! :)",
+      alertVariant: "success",
+    };
+  }
+
+  if (status === "timeout") {
+    return {
+      className: styles.resultStepTimeout,
+      title: "Nincs megfejtés :(",
+      alertVariant: "danger",
+    };
+  }
+
+  if (status === "failure") {
+    return {
+      className: styles.resultStepError,
+      title: "Helytelen megfejtés :(",
+      alertVariant: "danger",
+    };
+  }
+
+  return null;
+};
+
 export const Step = (props: StepProps) => {
   const [show, setShow] = useState(false);
   const { status, position, isCurrent, actualResult } = props;
-  let className = styles.resultStep;
 
-  if (status === "success") {
-    className += ` ${styles.resultStepSuccess}`;
-  } else if (status === "failure") {
-    className += ` ${styles.resultStepError}`;
-  }
-
+  const statusInfo = handleStatus(status) || {
+    className: "",
+    title: "",
+    alertVariant: "info",
+  };
+  const { title, alertVariant } = statusInfo;
+  let className = `${styles.resultStep} ${statusInfo.className}`;
   if (isCurrent) {
     className += ` ${styles.resultStepCurrent}`;
   }
-
-  const title =
-    status === "success" ? "Gratulálok! :)" : "Helytelen megfejtés :(";
-  const alertVariant = status === "success" ? "success" : "danger";
 
   const onModalClose = () => setShow(false);
   const onClick = () => {
@@ -67,6 +97,11 @@ export const Step = (props: StepProps) => {
 
     setShow(true);
   };
+
+  const actualResultText =
+    typeof actualResult === "number" && isNaN(actualResult)
+      ? "Nincs válasz"
+      : actualResult;
 
   return (
     <>
@@ -84,7 +119,7 @@ export const Step = (props: StepProps) => {
               <TaskDescription {...props} />
               <hr />
               <TaskExpectedResult {...props} />
-              <p>A te megoldasod: {actualResult}</p>
+              <p>A te megoldasod: {actualResultText}</p>
             </Alert>
           </Modal.Body>
         </Modal>

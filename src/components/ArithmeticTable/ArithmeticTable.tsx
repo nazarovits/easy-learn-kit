@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 import ResultSteps from "../ResultSteps";
 import ArithmeticTableForm, {
@@ -7,9 +7,11 @@ import ArithmeticTableForm, {
 
 import { Alert, Col, Row } from "react-bootstrap";
 import { createListWithNumbers } from "../utils";
-import { ResultStep } from "../ResultSteps/ResultSteps.types";
+import { ResultStep, ResultStepStatus } from "../ResultSteps/ResultSteps.types";
 import TaskLayout from "@/components/Layout/TaskLayout";
 import Spinner from "../Spinner/Spinner";
+
+import TimerBar from "@/components/TimerBar";
 
 export enum Operation {
   Addition = "+",
@@ -31,10 +33,17 @@ export interface ArithmeticTableProps {
   operation: Operation;
   tasks: Task[];
   hasStartButton?: boolean;
+  hasTimer?: boolean;
 }
 
 export const ArithmeticTable = (props: ArithmeticTableProps) => {
-  const { title, tasks, operation, hasStartButton = false } = props;
+  const {
+    title,
+    tasks,
+    operation,
+    hasStartButton = false,
+    hasTimer = false,
+  } = props;
   const updateStep = (step: ResultStep) => {
     const newSteps = [...steps];
     const stepIndex = newSteps.findIndex((s) => s.position === step.position);
@@ -44,34 +53,43 @@ export const ArithmeticTable = (props: ArithmeticTableProps) => {
     }
   };
 
+  const [timeLeftMs, setTimeLeftMs] = useState(10_000);
+
   const [steps, setSteps] = useState<ResultStep[]>([]);
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isStarted, setIsStarted] = useState(!hasStartButton);
   const [isCompleted, setIsCompleted] = useState(false);
   const currentTask = tasks[currentStep - 1];
+
+  const handleFormSubmit = (result: {
+    status: ResultStepStatus;
+    actualResult: number;
+  }) => {
+    const { status, actualResult } = result;
+    const { number1, number2, expectedResult } = currentTask;
+
+    updateStep({
+      position: currentStep,
+      status,
+      task: `${number1} ${operation} ${number2}`,
+      actualResult,
+      expectedResult,
+    });
+
+    if (currentStep === tasks.length) {
+      //setShowModal(true);
+      setIsCompleted(true);
+      //alert("Végeztél!");
+      //window.location.reload();
+    } else {
+      setCurrentStep(currentStep + 1);
+      setTimeLeftMs(10_000);
+    }
+  };
+
   const formProps: ArithmeticTableFormProps = {
     ...currentTask,
-
-    onSubmit: ({ status, actualResult }) => {
-      const { number1, number2, expectedResult } = currentTask;
-
-      updateStep({
-        position: currentStep,
-        status,
-        task: `${number1} ${operation} ${number2}`,
-        actualResult,
-        expectedResult,
-      });
-
-      if (currentStep === tasks.length) {
-        //setShowModal(true);
-        setIsCompleted(true);
-        //alert("Végeztél!");
-        //window.location.reload();
-      } else {
-        setCurrentStep(currentStep + 1);
-      }
-    },
+    onSubmit: handleFormSubmit,
   };
 
   useEffect(() => {
@@ -92,6 +110,27 @@ export const ArithmeticTable = (props: ArithmeticTableProps) => {
     setIsStarted(true);
   };
 
+  useEffect(() => {
+    if (!isStarted || isCompleted || !hasTimer) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setTimeLeftMs((prev) => {
+        if (prev <= 100) {
+          clearInterval(interval);
+          //setIsCompleted(true);
+          handleFormSubmit({ status: "timeout", actualResult: NaN });
+          return 0;
+        } else {
+          return prev - 100;
+        }
+      });
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, [timeLeftMs]);
+
   return (
     <TaskLayout
       title={title}
@@ -107,11 +146,20 @@ export const ArithmeticTable = (props: ArithmeticTableProps) => {
 
       {steps.length > 0 && (
         <Col className="mt-4">
+          {/* Steps */}
           {isStarted && <ResultSteps steps={steps} currentStep={currentStep} />}
+
+          {/* Timer */}
+          {isStarted && hasTimer && (
+            <TimerBar timeLeftMs={timeLeftMs} totalTimeMs={10_000} />
+          )}
+
+          {/* Form */}
           {isStarted && !isCompleted && (
             <ArithmeticTableForm {...formProps} operationSymbol={operation} />
           )}
 
+          {/* Final results */}
           {isCompleted && (
             <Row className="align-items-center justify-content-center mt-4">
               <Col className="col">

@@ -1,0 +1,17 @@
+.timerBarContainer {
+  width: 100%;
+}
+
+.timerBarBackground {
+  padding: 0;
+  padding-right: 32px;
+  border-bottom-width: 2px;
+  border-bottom-style: dashed;
+  border-bottom-color: #777;
+}
+
+.timerBarFill {
+  width: 32px;
+  height: 32px;
+  position: relative;
+}

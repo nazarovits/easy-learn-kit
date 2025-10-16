@@ -25,6 +25,11 @@
   background-color: #d1e7dd;
   border-color: #a3cfbb;
 }
+.resultStepTimeout {
+  composes: resultStep;
+  background-color: #fff3cd;
+  border-color: #ffecb5;
+}
 
 .resultStepCurrent {
   font-weight: bold;

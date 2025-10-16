@@ -1,7 +1,7 @@
 import { RelationType } from "@/components/RelationsTable/Tasks";
 
 export type ResultStepType = "arithmetical" | "relations";
-export type ResultStepStatus = "success" | "failure" | "default";
+export type ResultStepStatus = "default" | "success" | "failure" | "timeout";
 export type TaskResultType = number | string | RelationType;
 
 export interface ResultStep {
