@@ -1,31 +1,22 @@
 "use client";
 
 import { useRef } from "react";
+import ArithmeticTable, {
+  Operation,
+  createMultiplicationTasks,
+} from "@/components/ArithmeticTable";
+import { Params } from "@/components/utils/getRandomNumbersFromRanges";
 
-import { getRandomInteger } from "@/components/utils/getRandomInteger";
-import { createListWithNumbers } from "@/components/utils";
-import ArithmeticTable, { Operation, Task } from "@/components/ArithmeticTable";
-
-const taskCount = 10;
-const createTasks = (): Task[] => {
-  const items = createListWithNumbers(taskCount);
-  const tasks = items.map(() => {
-    const number1 = getRandomInteger(2, 9);
-    const number2 = getRandomInteger(2, 9);
-    const expectedResult = number1 * number2;
-
-    return {
-      number1,
-      number2,
-      expectedResult,
-    };
-  });
-
-  return tasks;
+const params: Params = {
+  count: 10,
+  ranges: [
+    [2, 9],
+    [2, 9],
+  ],
 };
 
 const Page = () => {
-  const tasks = useRef(createTasks()).current;
+  const tasks = useRef(createMultiplicationTasks(params)).current;
 
   return (
     <ArithmeticTable

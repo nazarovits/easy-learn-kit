@@ -1,29 +1,17 @@
 import { Addition } from "@/components/Addition";
-import { Task } from "@/components/ArithmeticTable";
-import { createListWithNumbers } from "@/components/utils";
-import { getRandomInteger } from "@/components/utils/getRandomInteger";
+import { createAdditionTasks } from "@/components/ArithmeticTable/tasks";
+import { Params } from "@/components/utils/getRandomNumbersFromRanges";
 
-const taskCount = 10;
-const createAdditionTasks = (): Task[] => {
-  const items = createListWithNumbers(taskCount);
-  const tasks = items.map(() => {
-    const number1 = getRandomInteger(1, 10);
-    const number2 = getRandomInteger(0, 10);
-
-    const sum = number1 + number2;
-
-    return {
-      number1,
-      number2,
-      expectedResult: sum,
-    };
-  });
-
-  return tasks;
+const params: Params = {
+  count: 10,
+  ranges: [
+    [1, 10],
+    [0, 10],
+  ],
 };
 
 const Page = () => {
-  const tasks = createAdditionTasks();
+  const tasks = createAdditionTasks(params);
   return <Addition tasks={tasks} />;
 };
 

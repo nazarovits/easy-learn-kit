@@ -24,6 +24,8 @@ export interface Task {
   expectedResult: number;
 }
 
+export type Tasks = Task[];
+
 export interface ArithmeticTableProps {
   title: string;
   operation: Operation;
