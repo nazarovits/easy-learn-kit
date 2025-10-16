@@ -1,11 +1,12 @@
 "use client";
 
 import { useRef } from "react";
+
+import { Params } from "@/components/utils/getRandomNumbersFromRanges";
 import ArithmeticTable, {
   Operation,
   createMultiplicationTasks,
 } from "@/components/ArithmeticTable";
-import { Params } from "@/components/utils/getRandomNumbersFromRanges";
 
 const params: Params = {
   count: 10,

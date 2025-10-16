@@ -13,7 +13,7 @@ import Spinner from "../Spinner/Spinner";
 
 export enum Operation {
   Addition = "+",
-  Subtraction = "-",
+  Substraction = "-",
   Multiplication = "x",
   Division = ":",
 }
