@@ -30,9 +30,13 @@ export const createAdditionTasks = (params: Params): Tasks => {
  * that result in a carry (i.e., the sum of the units digits is 10 or more).
  */
 export const createAdditionWithCarryTasks = (params: Params): Tasks => {
-  const { count } = params;
-  const validUnits: [number, number][] = [];
+  const { count, ranges } = params;
+  // ranges: [[min1, max1], [min2, max2]]
+  const [range1, range2] = ranges;
+  const [min1, max1] = range1;
+  const [min2, max2] = range2;
 
+  const validUnits: [number, number][] = [];
   // Precompute all unit digit pairs (0-9) where sum >= 10
   for (let u1 = 0; u1 <= 9; u1++) {
     for (let u2 = 0; u2 <= 9; u2++) {
@@ -40,20 +44,25 @@ export const createAdditionWithCarryTasks = (params: Params): Tasks => {
     }
   }
 
-  // Helper to generate a random two-digit number with a specific units digit
-  const randomTwoDigitWithUnits = (units: number): number => {
-    const tens = Math.floor(Math.random() * 9) + 1; // tens digit 1-9
-    return tens * 10 + units;
+  // Helper to generate a random number in [min, max] with a specific units digit
+  const randomWithUnits = (min: number, max: number, units: number): number => {
+    // Find all numbers in [min, max] with the given units digit
+    const candidates: number[] = [];
+    for (let n = min; n <= max; n++) {
+      if (n % 10 === units) candidates.push(n);
+    }
+    // Pick one randomly
+    return candidates[Math.floor(Math.random() * candidates.length)];
   };
 
   const tasks: Tasks = [];
   while (tasks.length < count) {
     // Pick a valid units digit pair
     const [u1, u2] = validUnits[Math.floor(Math.random() * validUnits.length)];
-    const number1 = randomTwoDigitWithUnits(u1);
-    const number2 = randomTwoDigitWithUnits(u2);
+    const number1 = randomWithUnits(min1, max1, u1);
+    const number2 = randomWithUnits(min2, max2, u2);
     const sum = number1 + number2;
-    if (sum < 100) {
+    if (sum < 100 && !isNaN(number1) && !isNaN(number2)) {
       tasks.push({
         number1,
         number2,
@@ -83,6 +92,40 @@ export const createSubsctructionTasks = (params: Params): Tasks => {
     };
   });
 
+  return tasks;
+};
+
+/*
+ * Creates subtraction tasks that require borrowing (i.e., the units digit of the minuend is less than that of the subtrahend).
+ * @param params - Parameters defining the number ranges and count of tasks.
+ * @returns An array of subtraction tasks requiring borrowing.
+ */
+export const createSubstractionWithCarryTasks = (params: Params): Tasks => {
+  const { count, ranges } = params;
+  // ranges: [[min1, max1], [min2, max2]]
+  const [range1, range2] = ranges;
+  const [min1, max1] = range1;
+  const [min2, max2] = range2;
+
+  const tasks: Tasks = [];
+  while (tasks.length < count) {
+    const number2 = Math.floor(Math.random() * (max2 - min2 + 1)) + min2;
+    // number1 legyen nagyobb, de max max1
+    const minNumber1 = Math.max(number2 + 1, min1);
+    const maxNumber1 = max1;
+    if (minNumber1 > maxNumber1) continue;
+    const number1 =
+      Math.floor(Math.random() * (maxNumber1 - minNumber1 + 1)) + minNumber1;
+
+    // Tízesátlépés: az egyesek helyén a kivonandó nagyobb, mint a kivonandó egyesek
+    if (number1 % 10 < number2 % 10) {
+      tasks.push({
+        number1,
+        number2,
+        expectedResult: number1 - number2,
+      });
+    }
+  }
   return tasks;
 };
 

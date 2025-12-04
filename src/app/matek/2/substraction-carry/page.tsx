@@ -5,24 +5,24 @@ import { useRef } from "react";
 import { Params } from "@/components/utils/getRandomNumbersFromRanges";
 import ArithmeticTable, {
   Operation,
-  createAdditionWithCarryTasks,
+  createSubstractionWithCarryTasks,
 } from "@/components/ArithmeticTable";
 
 const params: Params = {
   count: 10,
   ranges: [
-    [10, 90],
+    [10, 80],
     [10, 90],
   ],
 };
 
 const Page = () => {
-  const tasks = useRef(createAdditionWithCarryTasks(params)).current;
+  const tasks = useRef(createSubstractionWithCarryTasks(params)).current;
 
   return (
     <ArithmeticTable
-      title="Kétjegyű számok összeadása tízesátlépéssel"
-      operation={Operation.Addition}
+      title="Kétjegyű számok kivonása tízesátlépéssel"
+      operation={Operation.Substraction}
       tasks={tasks}
     />
   );

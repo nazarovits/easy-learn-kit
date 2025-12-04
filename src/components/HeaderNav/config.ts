@@ -30,12 +30,16 @@ export const createHeaderItems = (): HeaderItems => {
           path: "/matek/2/addition",
         },
         {
-          name: "Teljes kétjegyű számok összeadása tízesátlépéssel",
+          name: "Kétjegyű számok összeadása tízesátlépéssel",
           path: "/matek/2/addition-carry",
         },
         {
           name: "Kivonás",
           path: "/matek/2/substraction",
+        },
+        {
+          name: "Kétjegyű számok kivonása tízesátlépéssel",
+          path: "/matek/2/substraction-carry",
         },
       ],
     },
