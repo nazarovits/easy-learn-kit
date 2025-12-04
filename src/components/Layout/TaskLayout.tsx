@@ -1,5 +1,7 @@
 import { PropsWithChildren } from "react";
+import { FiRefreshCw } from "react-icons/fi";
 import { Button, Container, Col, Row } from "react-bootstrap";
+import IconButton from "@/ui/IconButton";
 
 interface TaskLayoutProps {
   title: string;
@@ -16,6 +18,14 @@ export const TaskLayout = (props: PropsWithChildren<TaskLayoutProps>) => {
     hasStartButton = true,
   } = props;
 
+  const onReloadClick = () => {
+    window.location.reload();
+  };
+
+  const onSettingsClick = () => {
+    alert("Settings clicked!");
+  };
+
   return (
     <Container>
       <Col>
@@ -31,12 +41,20 @@ export const TaskLayout = (props: PropsWithChildren<TaskLayoutProps>) => {
               </Button>
             )}
             {isStarted && (
-              <Button
-                variant="secondary"
-                onClick={() => window.location.reload()}
-              >
-                Újrakezdés
-              </Button>
+              <Row className="mt-2 justify-content-center gap-2">
+                <IconButton
+                  iconType="refresh"
+                  aria-label="Újrakezdés"
+                  variant="outline-success"
+                  onClick={onReloadClick}
+                />
+                <IconButton
+                  iconType="settings"
+                  aria-label="Beállítások"
+                  variant="outline-secondary"
+                  onClick={onSettingsClick}
+                />
+              </Row>
             )}
           </Col>
         </Row>
