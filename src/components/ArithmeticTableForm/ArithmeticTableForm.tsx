@@ -1,7 +1,9 @@
 import { JSX, useRef, useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 import { ResultStepStatus } from "@/components/ResultSteps";
 import { shakeIt } from "@/ui/Animations";
+import IconButton from "@/ui/IconButton";
+
 import styles from "./ArithmeticTableForm.module.css";
 
 /**
@@ -159,9 +161,18 @@ export const ArithmeticTableForm = (
       </Row>
       <Row className="mt-4 text-center">
         <Col>
-          <Button type="submit" variant="primary" size="lg">
+          <IconButton
+            iconType="check"
+            aria-label="Beküldés"
+            variant="primary"
+            type="submit"
+            btnSize="lg"
+            style={{
+              display: "inline",
+            }}
+          >
             OK
-          </Button>
+          </IconButton>
         </Col>
       </Row>
     </Form>

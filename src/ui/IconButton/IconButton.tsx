@@ -1,19 +1,20 @@
-import { FiRefreshCw, FiSettings } from "react-icons/fi";
+import { FiRefreshCw, FiSettings, FiCheck } from "react-icons/fi";
 import { Button, ButtonProps } from "react-bootstrap";
-import styles from "./IconButton.module.css";
-
 import { joinClassNames } from "@/utils/classNames";
+import styles from "./IconButton.module.css";
 
 type IconButtonSize = "sm" | "lg";
 
 const iconComponentMap = {
   refresh: FiRefreshCw,
+  check: FiCheck,
   settings: FiSettings,
 };
 
 interface IconButtonProps extends ButtonProps {
   size?: IconButtonSize;
   iconType: keyof typeof iconComponentMap;
+  btnSize?: "sm" | "lg";
 }
 
 const iconSizeMap: Record<IconButtonSize, number> = {
@@ -26,10 +27,11 @@ const buttonSizeClassMap: Record<IconButtonSize, string> = {
   lg: styles.squareButtonLg,
 };
 
-function IconButton(props: IconButtonProps) {
-  const { size = "lg", iconType, ...restProps } = props;
+export function IconButton(props: IconButtonProps) {
+  const { size = "lg", btnSize, iconType, children, ...restProps } = props;
   const iconSize = iconSizeMap[size];
   const cls = joinClassNames(
+    styles.IconButton,
     styles.squareButton,
     buttonSizeClassMap[size],
     props.className
@@ -37,9 +39,24 @@ function IconButton(props: IconButtonProps) {
 
   const Icon = iconComponentMap[props.iconType];
 
+  if (!children) {
+    return (
+      <Button className={cls} {...restProps}>
+        <Icon size={iconSize} />
+      </Button>
+    );
+  }
+
+  const clsWithText = joinClassNames(
+    styles.IconButton,
+    styles.IconButtonWithText,
+    props.className
+  );
+
   return (
-    <Button className={cls} {...restProps}>
+    <Button className={clsWithText} {...restProps} size={btnSize}>
       <Icon size={iconSize} />
+      <span className="ms-2">{children}</span>
     </Button>
   );
 }

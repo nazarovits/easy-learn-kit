@@ -1,8 +1,16 @@
-.squareButton {
-  padding: 0;
+.IconButton {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.IconButtonWithText {
+  padding: 8 16px;
+  width: auto;
+}
+
+.squareButton {
+  padding: 0;
 }
 
 .squareButtonLg {
