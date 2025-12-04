@@ -2,13 +2,13 @@ type RoutePaths = string;
 
 export type HeaderNavType = "default" | "dropdown";
 export interface HeaderNavItem {
-  type: HeaderNavType;
+  type?: HeaderNavType;
   name: string;
   path: RoutePaths;
 }
 
 export interface HeaderSubNavItem {
-  type: HeaderNavType;
+  type?: HeaderNavType;
   name: string;
   path: RoutePaths;
   items: HeaderNavItem[] | HeaderSubNavItem[];
@@ -19,7 +19,7 @@ export type HeaderItems = HeaderItem[];
 
 export const createHeaderItems = (): HeaderItems => {
   const headerItems: HeaderItems = [
-    { type: "default", name: "ABC", path: "/abc" },
+    { name: "ABC", path: "/abc" },
     {
       name: "Matek 2-osztály",
       type: "dropdown",
@@ -27,12 +27,14 @@ export const createHeaderItems = (): HeaderItems => {
       items: [
         {
           name: "Összeadás",
-          type: "default",
           path: "/matek/2/addition",
         },
         {
+          name: "Teljes kétjegyű számok összeadása tízesátlépéssel",
+          path: "/matek/2/addition-carry",
+        },
+        {
           name: "Kivonás",
-          type: "default",
           path: "/matek/2/substraction",
         },
       ],
@@ -44,37 +46,30 @@ export const createHeaderItems = (): HeaderItems => {
       items: [
         {
           name: "Összeadás",
-          type: "default",
           path: "/matek/3/addition",
         },
         {
           name: "Kivonás",
-          type: "default",
           path: "/matek/3/substraction",
         },
         {
           name: "Szorzás",
-          type: "default",
           path: "/matek/3/multiplication",
         },
         {
           name: "Szorzás (időre)",
-          type: "default",
           path: "/matek/3/multiplication-timer",
         },
         {
           name: "Osztás",
-          type: "default",
           path: "/matek/3/division",
         },
         {
           name: "Maradékos osztás",
-          type: "default",
           path: "/matek/3/mod",
         },
         {
           name: "Relációk",
-          type: "default",
           path: "/matek/3/compare/100-999",
         },
       ],

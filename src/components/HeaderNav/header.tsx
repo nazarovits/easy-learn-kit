@@ -26,7 +26,8 @@ export const Header = () => {
               variant="underline"
             >
               {headerItems.map((headerItem) => {
-                if (headerItem.type === "default") {
+                const type = headerItem.type || "default";
+                if (type === "default") {
                   const navItem = headerItem as HeaderNavItem;
                   return (
                     <Nav.Item key={navItem.name}>
@@ -35,7 +36,7 @@ export const Header = () => {
                   );
                 }
 
-                if (headerItem.type === "dropdown") {
+                if (type === "dropdown") {
                   const subNavItem = headerItem as HeaderSubNavItem;
                   const isActive = !!(
                     headerItem.path && pathname.startsWith(headerItem.path)
