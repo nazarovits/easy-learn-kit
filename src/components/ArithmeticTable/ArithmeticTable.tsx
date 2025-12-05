@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
+import { TaskSettingsProvider } from "../TaskSettings";
 
 import ResultSteps from "../ResultSteps";
 import ArithmeticTableForm, {
@@ -11,7 +12,10 @@ import { ResultStep, ResultStepStatus } from "../ResultSteps/ResultSteps.types";
 import TaskLayout from "@/components/Layout/TaskLayout";
 import Spinner from "../Spinner/Spinner";
 
+import { useTaskSettings } from "@/components/TaskSettings";
+
 import TimerBar from "@/components/TimerBar";
+import { Jersey_10_Charted } from "next/font/google";
 
 export enum Operation {
   Addition = "+",
@@ -36,7 +40,7 @@ export interface ArithmeticTableProps {
   hasTimer?: boolean;
 }
 
-export const ArithmeticTable = (props: ArithmeticTableProps) => {
+export const ArithmeticTableInner = (props: ArithmeticTableProps) => {
   const {
     title,
     tasks,
@@ -44,6 +48,9 @@ export const ArithmeticTable = (props: ArithmeticTableProps) => {
     hasStartButton = false,
     hasTimer = false,
   } = props;
+  const { settings } = useTaskSettings();
+  const [currentSettings, setCurrentSettings] = useState(settings);
+
   const updateStep = (step: ResultStep) => {
     const newSteps = [...steps];
     const stepIndex = newSteps.findIndex((s) => s.position === step.position);
@@ -53,7 +60,10 @@ export const ArithmeticTable = (props: ArithmeticTableProps) => {
     }
   };
 
-  const [timeLeftMs, setTimeLeftMs] = useState(10_000);
+  const hasTimeLimit = hasTimer || settings.hasTimeLimit;
+  const timeLimitSeconds = settings.timeLimitSeconds || 10;
+  const timeLimitMs = timeLimitSeconds * 1000;
+  const [timeLeftMs, setTimeLeftMs] = useState<number>(timeLimitMs);
 
   const [steps, setSteps] = useState<ResultStep[]>([]);
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -83,7 +93,7 @@ export const ArithmeticTable = (props: ArithmeticTableProps) => {
       //window.location.reload();
     } else {
       setCurrentStep(currentStep + 1);
-      setTimeLeftMs(10_000);
+      setTimeLeftMs(timeLimitMs);
     }
   };
 
@@ -111,7 +121,7 @@ export const ArithmeticTable = (props: ArithmeticTableProps) => {
   };
 
   useEffect(() => {
-    if (!isStarted || isCompleted || !hasTimer) {
+    if (!isStarted || isCompleted || !hasTimeLimit) {
       return;
     }
 
@@ -129,7 +139,17 @@ export const ArithmeticTable = (props: ArithmeticTableProps) => {
     }, 100);
 
     return () => clearInterval(interval);
-  }, [timeLeftMs]);
+  }, [timeLeftMs, hasTimeLimit, timeLimitMs]);
+
+  useEffect(() => {
+    if (
+      settings.count !== currentSettings.count ||
+      settings.hasTimeLimit !== currentSettings.hasTimeLimit ||
+      settings.timeLimitSeconds !== currentSettings.timeLimitSeconds
+    ) {
+      window.location.reload();
+    }
+  }, [settings, currentSettings]);
 
   return (
     <TaskLayout
@@ -150,8 +170,8 @@ export const ArithmeticTable = (props: ArithmeticTableProps) => {
           {isStarted && <ResultSteps steps={steps} currentStep={currentStep} />}
 
           {/* Timer */}
-          {isStarted && hasTimer && (
-            <TimerBar timeLeftMs={timeLeftMs} totalTimeMs={10_000} />
+          {isStarted && hasTimeLimit && (
+            <TimerBar timeLeftMs={timeLeftMs} totalTimeMs={timeLimitMs} />
           )}
 
           {/* Form */}
@@ -180,5 +200,11 @@ export const ArithmeticTable = (props: ArithmeticTableProps) => {
     </TaskLayout>
   );
 };
+
+export const ArithmeticTable = (props: ArithmeticTableProps) => (
+  <TaskSettingsProvider>
+    <ArithmeticTableInner {...props} />
+  </TaskSettingsProvider>
+);
 
 export default ArithmeticTable;

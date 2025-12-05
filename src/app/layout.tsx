@@ -3,6 +3,7 @@ import "@/app/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import HeaderNav from "@/components/HeaderNav";
+import { TaskSettingsProvider } from "@/components/TaskSettings";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

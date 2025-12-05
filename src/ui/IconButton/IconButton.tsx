@@ -1,4 +1,4 @@
-import { FiRefreshCw, FiSettings, FiCheck } from "react-icons/fi";
+import { FiRefreshCw, FiSave, FiSettings, FiCheck } from "react-icons/fi";
 import { Button, ButtonProps } from "react-bootstrap";
 import { joinClassNames } from "@/utils/classNames";
 import styles from "./IconButton.module.css";
@@ -8,6 +8,7 @@ type IconButtonSize = "sm" | "lg";
 const iconComponentMap = {
   refresh: FiRefreshCw,
   check: FiCheck,
+  save: FiSave,
   settings: FiSettings,
 };
 

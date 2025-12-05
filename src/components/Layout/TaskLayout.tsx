@@ -1,7 +1,7 @@
-import { PropsWithChildren } from "react";
-import { FiRefreshCw } from "react-icons/fi";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { Button, Container, Col, Row } from "react-bootstrap";
 import IconButton from "@/ui/IconButton";
+import { TaskSettingsModal } from "@/components/TaskSettings";
 
 interface TaskLayoutProps {
   title: string;
@@ -17,13 +17,14 @@ export const TaskLayout = (props: PropsWithChildren<TaskLayoutProps>) => {
     onStartClick = () => {},
     hasStartButton = true,
   } = props;
+  const [showModal, setShowModal] = useState(false);
 
   const onReloadClick = () => {
     window.location.reload();
   };
 
   const onSettingsClick = () => {
-    alert("Settings clicked!");
+    setShowModal(true);
   };
 
   return (
@@ -60,6 +61,7 @@ export const TaskLayout = (props: PropsWithChildren<TaskLayoutProps>) => {
         </Row>
         <Row className="justify-content-center">{children}</Row>
       </Col>
+      <TaskSettingsModal show={showModal} onHide={() => setShowModal(false)} />
     </Container>
   );
 };

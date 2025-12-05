@@ -2,6 +2,7 @@ import styles from "./TimerBar.module.css";
 import { Row, Col } from "react-bootstrap";
 
 import Train from "@/illustrations/train";
+import Lizard from "@/illustrations/lizard";
 
 export interface TimerBarProps {
   timeLeftMs: number;
@@ -21,6 +22,7 @@ const colors: Record<Status, string> = {
 
 export const TimerBar = (props: TimerBarProps) => {
   const { timeLeftMs, totalTimeMs } = props;
+  console.log("TimerBar render", { timeLeftMs, totalTimeMs });
   const status =
     timeLeftMs > totalTimeMs * 0.5
       ? Status.Normal
@@ -44,7 +46,8 @@ export const TimerBar = (props: TimerBarProps) => {
             className={styles.timerBarFill}
             style={{ left: `${100 - positionPercentage}%` }}
           >
-            <Train color={color} />
+            {true && <Train color={color} />}
+            {false && <Lizard color={color} />}
           </div>
         </div>
         <div className="text-center" style={{ color }}>
