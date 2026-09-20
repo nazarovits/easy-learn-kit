@@ -46,8 +46,8 @@ export const TimerBar = (props: TimerBarProps) => {
             className={styles.timerBarFill}
             style={{ left: `${100 - positionPercentage}%` }}
           >
-            {true && <Train color={color} />}
-            {false && <Lizard color={color} />}
+            {false && <Train color={color} />}
+            {true && <Lizard color={color} />}
           </div>
         </div>
         <div className="text-center" style={{ color }}>

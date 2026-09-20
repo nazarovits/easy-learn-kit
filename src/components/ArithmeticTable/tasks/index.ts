@@ -32,7 +32,7 @@ export const createAdditionTasks = (params: Params): Tasks => {
 export const createAdditionWithCarryTasks = (params: Params): Tasks => {
   const { count, ranges } = params;
   // ranges: [[min1, max1], [min2, max2]]
-  const [range1, range2] = ranges;
+  const [range1, range2] = ranges as [number, number][];
   const [min1, max1] = range1;
   const [min2, max2] = range2;
 
@@ -103,7 +103,7 @@ export const createSubsctructionTasks = (params: Params): Tasks => {
 export const createSubstractionWithCarryTasks = (params: Params): Tasks => {
   const { count, ranges } = params;
   // ranges: [[min1, max1], [min2, max2]]
-  const [range1, range2] = ranges;
+  const [range1, range2] = ranges as [number, number][];
   const [min1, max1] = range1;
   const [min2, max2] = range2;
 
@@ -136,6 +136,7 @@ export const createSubstractionWithCarryTasks = (params: Params): Tasks => {
  */
 export const createMultiplicationTasks = (params: Params): Tasks => {
   const numbers = getRandomNumbersFromRanges(params);
+
   const tasks: Tasks = numbers.map((pair) => {
     const [number1, number2] = pair;
     const expectedResult = number1 * number2;

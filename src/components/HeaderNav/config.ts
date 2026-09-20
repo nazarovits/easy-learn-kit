@@ -41,6 +41,14 @@ export const createHeaderItems = (): HeaderItems => {
           name: "Kétjegyű számok kivonása tízesátlépéssel",
           path: "/matek/2/substraction-carry",
         },
+        {
+          name: "Szorzás",
+          path: "/matek/2/multiplication",
+        },
+        {
+          name: "Osztás",
+          path: "/matek/2/division",
+        },
       ],
     },
     {

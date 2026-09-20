@@ -1,3 +1,4 @@
+"use client";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -24,7 +25,9 @@ export default function RootLayout({
     <html lang="en" data-layout="main">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <HeaderNav />
-        <main className="container-fluid h-100">{children}</main>
+        <TaskSettingsProvider>
+          <main className="container-fluid h-100">{children}</main>
+        </TaskSettingsProvider>
       </body>
     </html>
   );
