@@ -86,6 +86,17 @@ export const createHeaderItems = (): HeaderItems => {
         },
       ],
     },
+    {
+      name: "4. osztály",
+      type: "dropdown",
+      path: "/class-room/4",
+      items: [
+        {
+          name: "Angol - Szín tanulás",
+          path: "/class-room/4/english/type-color",
+        },
+      ],
+    },
   ];
   return headerItems;
 };
