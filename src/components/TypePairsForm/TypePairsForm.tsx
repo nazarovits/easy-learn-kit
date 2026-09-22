@@ -71,24 +71,16 @@ export function createListWithNumbers(start: number, end: number): number[] {
   return result;
 }
 
-/**
- * Props for ArithmeticTableForm component.
- */
 export interface TypePairsFormProps {
   fieldName: string;
   fieldValue: string;
-  /** Expected result of the operation */
   expectedResult: string;
-  /** Callback when form is submitted */
   onSubmit: (result: {
     status: ResultStepStatus;
     actualResult: string;
   }) => void;
 }
 
-/**
- * ArithmeticTableForm component for math exercises.
- */
 export const TypePairsForm = (props: TypePairsFormProps): JSX.Element => {
   const { fieldName, expectedResult, onSubmit } = props;
   const inputRef = useRef<HTMLInputElement>(null);
@@ -107,8 +99,10 @@ export const TypePairsForm = (props: TypePairsFormProps): JSX.Element => {
 
     setIsInvalid(false);
 
-    const actualResult: string = value.trim();
-    if (actualResult !== expectedResult) {
+    const actualResult: string = value;
+    if (
+      actualResult.trim().toLowerCase() !== expectedResult.trim().toLowerCase()
+    ) {
       onSubmit({ status: "failure", actualResult });
     } else {
       onSubmit({ status: "success", actualResult });
