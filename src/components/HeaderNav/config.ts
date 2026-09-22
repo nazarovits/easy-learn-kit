@@ -92,8 +92,8 @@ export const createHeaderItems = (): HeaderItems => {
       path: "/class-room/4",
       items: [
         {
-          name: "Angol - Szín tanulás",
-          path: "/class-room/4/english/type-color",
+          name: "Angol",
+          path: "/class-room/4/english",
         },
       ],
     },
